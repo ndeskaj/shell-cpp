@@ -43,5 +43,6 @@ int main() {
     }
     // handling invalid comments
     std::cout << input << ": command not found" << std::endl;
+    }
   }
 }
