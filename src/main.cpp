@@ -7,9 +7,29 @@ int main() {
   
   std::string input;
 
+  // built-in commands
+  const std::string builtins[] = {"echo", "exit 0", "type"};
+  const int numBuiltins = sizeof(builtins) / sizeof(builtins[0]);
+
   while (true) {
     std::cout << "$ ";
     std::getline(std::cin, input);
+    
+    if (input.find("type") == 0 ){
+      std::string command = input.substr(5); // get command
+      //bool found = false;
+
+      // check if command is a built-in command
+      for (int i = 0; i < numBuiltins; i++) {
+        if (command == builtins[i]) {
+          std::cout << command << " is a shell builtin" << std::endl;
+          //found = true;
+          break;
+        } else
+          std::cout << command << " not found" << std::endl;
+      }
+    }
+    
     // handle echo command
     if (input.find("echo") == 0) {
       std::cout << input.substr(5) << std::endl;
