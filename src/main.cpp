@@ -17,17 +17,19 @@ int main() {
     
     if (input.find("type") == 0 ){
       std::string command = input.substr(5); // get command
-      //bool found = false;
+      bool found = false;
 
-      // check if command is a built-in command
-      for (int i = 0; i < numBuiltins; i++) {
-        if (command == builtins[i]) {
-          std::cout << command << " is a shell builtin" << std::endl;
-          //found = true;
-          break;
-        } else
-          std::cout << command << " not found" << std::endl;
+    // check if command is a built-in command
+    for (int i = 0; i < numBuiltins; i++) {
+      if (command == builtins[i]) {
+        std::cout << command << " is a shell builtin" << std::endl;
+        found = true;
+        break;
       }
+    }
+
+    if (!found) {
+      std::cout << command << " not found" << std::endl;
     }
     
     // handle echo command
