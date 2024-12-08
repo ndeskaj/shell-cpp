@@ -10,6 +10,11 @@ int main() {
   while (true) {
     std::cout << "$ ";
     std::getline(std::cin, input);
+    // handle echo command
+    if (input.find("echo") == 0) {
+      std::cout << input.substr(5) << std::endl;
+      continue;
+    }
     // handle exit 0 command and terminate with 0
     if (input == "exit 0") {
       break;
