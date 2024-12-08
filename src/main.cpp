@@ -26,10 +26,10 @@ int main() {
           found = true;
           break;
         }
-        if (!found) {
+      }
+      if (!found) {
           std::cout << command << " not found" << std::endl;
         } 
-      }
       continue;
     }
     
