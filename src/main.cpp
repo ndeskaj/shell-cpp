@@ -8,7 +8,7 @@ int main() {
   std::string input;
 
   // built-in commands
-  const std::string builtins[] = {"echo", "exit 0", "type"};
+  const std::string builtins[] = {"echo", "exit 0", "exit", "type"};
   const int numBuiltins = sizeof(builtins) / sizeof(builtins[0]);
 
   while (true) {
