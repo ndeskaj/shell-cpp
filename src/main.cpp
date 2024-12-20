@@ -48,9 +48,6 @@ int main() {
           break;
         }
       }
-      if (!found) {
-          std::cout << command << ": not found" << std::endl;
-      }
 
       // check if command is in PATH
       std::string path = getPath(command);
@@ -60,6 +57,10 @@ int main() {
       } else {
         std::cout << command << " is " << path << std::endl;
         continue;
+      }
+  
+      if (!found) {
+          std::cout << command << ": not found" << std::endl;
       }
 
       continue;
