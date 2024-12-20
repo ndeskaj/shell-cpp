@@ -76,7 +76,5 @@ int main() {
     if (input == "exit 0") {
       break;
     }
-    // handling invalid comments
-    std::cout << input << ": command not found" << std::endl;
   }
 }
