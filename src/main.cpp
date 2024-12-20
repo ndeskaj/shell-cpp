@@ -14,7 +14,7 @@ std::string getPath(std::string command) {
     std::getline(ss, path, ':');
     std::string full_path = path + "/" + command;
     if (std::filesystem::exists(full_path)) {
-      return path;
+      return full_path;
     }
   }
   return "";
@@ -39,6 +39,16 @@ int main() {
       std::string command = input.substr(5); // get command
       bool found = false;
 
+      // check if command is in PATH
+      std::string path = getPath(command);
+      if (path.empty()) {
+        std::cout << command << ": not found\n"; 
+        continue;     
+      } else {
+        std::cout << command << " is " << path << "/" << command << std::endl;
+        continue;
+      }
+
       // check if command is a built-in command
       for (int i = 0; i < numBuiltins; i++) {
         if (command == builtins[i]) {
@@ -50,16 +60,7 @@ int main() {
       if (!found) {
           std::cout << command << ": not found" << std::endl;
         } 
-      // check if command is in PATH
-      std::string path = getPath(command);
-      if (path.empty()) {
-        std::cout << command << ": not found\n"; 
-        continue;     
-      } else {
-        std::cout << command << " is " << path << "/" << command << std::endl;
-        continue;
-      }
-      
+
       continue;
     }
 
