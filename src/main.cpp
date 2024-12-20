@@ -53,15 +53,13 @@ int main() {
           std::string path = getPath(command);
           if (path.empty()) {
             std::cout << command << ": not found\n"; 
-            break;     
           } else {
             std::cout << command << " is " << path << std::endl;
-            break;
           }
         }
-      }
       continue;
-    }
+
+      }
 
     
     // handle echo command
@@ -77,4 +75,5 @@ int main() {
     std::cout << input << ": command not found" << std::endl;
   }
   return 0;
+}
 }
