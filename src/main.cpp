@@ -40,16 +40,16 @@ int main() {
       std::string command = input.substr(5); // get command
       bool found = false;
 
-
       // check if command is a built-in command
       for (int i = 0; i < numBuiltins; i++) {
         if (command == builtins[i]) {
           std::cout << command << " is a shell builtin" << std::endl;
           found = true;
           break;
-        } else {
-
-          // check if command is in PATH
+        } 
+      
+        if (!found) {
+              // check if command is in PATH
           std::string path = getPath(command);
           if (path.empty()) {
             std::cout << command << ": not found\n"; 
@@ -58,12 +58,7 @@ int main() {
             std::cout << command << " is " << path << std::endl;
             break;
           }
-
         }
-      
-          if (!found) {
-              std::cout << command << ": not found" << std::endl;
-            }
       }
       continue;
     }
@@ -81,4 +76,5 @@ int main() {
     // handling invalid comments
     std::cout << input << ": command not found" << std::endl;
   }
+  return 0;
 }
