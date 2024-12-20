@@ -1,30 +1,21 @@
 #include <iostream>
 #include <cstring>
-#include <vector>
 #include <sstream>
+#include <filesystem>
 
-
-
-// function to split a string by a delimiter
-std::vector<std::string> split(const std::string &s, char delimiter) {
-  std::vector<std::string> tokens;
-  std::stringstream ss(s);
-  std::string item;
-  while (std::getline(ss, item, delimiter)) {
-    tokens.push_back(item);
-  }
-  return tokens;
-}
 
 // get PATH environment variable and split the paths
-std::string getPath() {
-  char* path = getenv("PATH");
-  std::vector<std::string> paths = split(path, ':');
-
-  for (const std::string &path : paths){
-    std::string fullPath = path + "/";
-    return fullPath;
-
+std::string getPath(std::string command) {
+  std::string path_env = std::getenv("PATH");
+  std::stringstream ss(path_env);
+  std::string path;
+  
+  while(!ss.eof()) {
+    std::getline(ss, path, ':');
+    std::string full_path = path + "/" + command;
+    if (std::filesystem::exists(full_path)) {
+      return path;
+    }
   }
   return "";
 }
