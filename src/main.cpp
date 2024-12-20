@@ -1,80 +1,96 @@
 #include <iostream>
-#include <cstring>
+
 #include <sstream>
+
+#include <string>
+
 #include <filesystem>
 
+std::string get_path(std::string command) {
 
-// get PATH environment variable and split the paths
-std::string getPath(std::string command) {
-  std::string path_env = std::getenv("PATH");
-  std::stringstream ss(path_env);
-  std::string path;
-  
-  while(!ss.eof()) {
-    std::getline(ss, path, ':');
-    std::string full_path = path + "/" + command;
-    if (std::filesystem::exists(full_path)) {
-      return full_path;
+    std::string path_env = std::getenv("PATH");
+
+    std::stringstream ss(path_env);
+
+    std::string path;
+
+    while(!ss.eof()) {
+
+        getline(ss, path, ':');
+
+        std::string abs_path = path + "/" + command;
+
+        if (std::filesystem::exists(abs_path)) {
+
+            return abs_path;
+
+        }
+
     }
-  }
-  return "";
+
+    return "";
+
 }
 
 int main() {
- 
-  
-  std::string input;
 
-  // built-in commands
-  const std::string builtins[] = {"echo", "exit 0", "exit", "type"};
-  const int numBuiltins = sizeof(builtins) / sizeof(builtins[0]);
+    bool exit = false;
 
-  while (true) {
-     // Flush after every std::cout / std:cerr
-    std::cout << std::unitbuf;
-    std::cerr << std::unitbuf;
-    std::cout << "$ ";
-    std::getline(std::cin, input);
-    
-    if (input.find("type") == 0 ){
-      std::string command = input.substr(5); // get command
-      bool found = false;
+    while (!exit) {
 
-      // check if command is a built-in command
-      for (int i = 0; i < numBuiltins; i++) {
-        if (command == builtins[i]) {
-          std::cout << command << " is a shell builtin" << std::endl;
-          found = true;
-          break;
-        } 
-      
-        if (!found) {
-              // check if command is in PATH
-          std::string path = getPath(command);
-          if (path.empty()) {
-            std::cout << command << ": not found\n"; 
-            break;
-          } else {
-            std::cout << command << " is " << path << std::endl;
-            break;
-          }
+        // Flush after every std::cout / std:cerr
+
+        std::cout << std::unitbuf;
+
+        std::cerr << std::unitbuf;
+
+        std::cout << "$ ";
+
+        std::string input;
+
+        std::getline(std::cin, input);
+
+        if (input == "exit 0") {
+
+            exit = true;
+
+        } else if (input.substr(0, 5) == "type ") {
+
+            std::string cmd = input.substr(5);
+
+            if (cmd.substr(0,4) == "type" || cmd.substr(0,4) == "exit" || cmd.substr(0,4) == "echo") {
+
+                std::cout << cmd << " is a shell builtin\n";
+
+            } else {
+              std::string path = get_path(cmd);
+
+                if (path.empty()) {
+
+                    std::cout << cmd << ": not found\n";
+
+                } else {
+
+                    std::cout << input.substr(5) << " is " << path << std::endl;
+
+                }
+
+            }
+
+        } else if (input.substr(0, 5) == "echo ") {
+
+            std::string cmd = input.substr(5);
+
+            std::cout << cmd << "\n";
+
+        } else {
+
+            std::cout << input << ": command not found\n";
+
         }
-      continue;
-      }
-      }
 
-    
-    // handle echo command
-    if (input.find("echo") == 0) {
-      std::cout << input.substr(5) << std::endl;
-      continue;
     }
-    // handle exit 0 command and terminate with 0
-    if (input == "exit 0") {
-      break;
-    }
-    // handling invalid comments
-    std::cout << input << ": command not found" << std::endl;
-  }
-  return 0;
+
+    return 0;
+
 }
