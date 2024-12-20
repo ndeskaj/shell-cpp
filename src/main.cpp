@@ -53,8 +53,10 @@ int main() {
           std::string path = getPath(command);
           if (path.empty()) {
             std::cout << command << ": not found\n"; 
+            break;
           } else {
             std::cout << command << " is " << path << std::endl;
+            break;
           }
         }
       continue;
