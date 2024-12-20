@@ -51,7 +51,7 @@ int main() {
           // check if command is in PATH
           std::string path = getPath(command);
           if (path.empty()) {
-            // std::cout << command << ": not found\n"; 
+            std::cout << command << ": not found\n"; 
             break;     
           } else {
             std::cout << command << " is " << path << std::endl;
