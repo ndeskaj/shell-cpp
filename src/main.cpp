@@ -47,10 +47,11 @@ int main() {
           found = true;
           break;
         } else {
-              // check if command is in PATH
+
+          // check if command is in PATH
           std::string path = getPath(command);
           if (path.empty()) {
-            std::cout << command << ": not found\n"; 
+            // std::cout << command << ": not found\n"; 
             break;     
           } else {
             std::cout << command << " is " << path << std::endl;
@@ -62,7 +63,6 @@ int main() {
             }
           }
       }
-
       continue;
     }
 
@@ -76,5 +76,7 @@ int main() {
     if (input == "exit 0") {
       break;
     }
+    // handling invalid comments
+    std::cout << input << ": command not found" << std::endl;
   }
 }
