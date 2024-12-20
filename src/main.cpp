@@ -57,11 +57,6 @@ int main() {
             std::cout << command << " is " << path << std::endl;
             break;
           }
-      
-          if (!found) {
-              std::cout << command << ": not found" << std::endl;
-            }
-          }
       }
       continue;
     }
