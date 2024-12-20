@@ -21,9 +21,7 @@ std::string getPath(std::string command) {
 }
 
 int main() {
-  // Flush after every std::cout / std:cerr
-  std::cout << std::unitbuf;
-  std::cerr << std::unitbuf;
+ 
   
   std::string input;
 
@@ -32,6 +30,9 @@ int main() {
   const int numBuiltins = sizeof(builtins) / sizeof(builtins[0]);
 
   while (true) {
+     // Flush after every std::cout / std:cerr
+    std::cout << std::unitbuf;
+    std::cerr << std::unitbuf;
     std::cout << "$ ";
     std::getline(std::cin, input);
     
@@ -57,6 +58,11 @@ int main() {
             std::cout << command << " is " << path << std::endl;
             break;
           }
+      
+          if (!found) {
+              std::cout << command << ": not found" << std::endl;
+            }
+          }
       }
       continue;
     }
@@ -74,5 +80,4 @@ int main() {
     // handling invalid comments
     std::cout << input << ": command not found" << std::endl;
   }
-}
 }
