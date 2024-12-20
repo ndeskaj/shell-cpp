@@ -45,7 +45,7 @@ int main() {
         std::cout << command << ": not found\n"; 
         continue;     
       } else {
-        std::cout << command << " is " << path << "/" << command << std::endl;
+        std::cout << command << " is " << path << std::endl;
         continue;
       }
 
