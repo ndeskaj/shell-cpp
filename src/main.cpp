@@ -40,7 +40,7 @@ int main() {
       bool found = false;
 
       // check if command is in PATH
-      std::string path = getPath();
+      std::string path = getPath(command);
       if (path.empty()) {
         std::cout << command << " not found\n";      
       } else {
