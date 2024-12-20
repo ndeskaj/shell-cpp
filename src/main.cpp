@@ -58,7 +58,7 @@ int main() {
           }
         }
       continue;
-
+      }
       }
 
     
@@ -75,5 +75,4 @@ int main() {
     std::cout << input << ": command not found" << std::endl;
   }
   return 0;
-}
 }
