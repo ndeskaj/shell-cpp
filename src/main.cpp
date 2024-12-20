@@ -46,21 +46,21 @@ int main() {
           std::cout << command << " is a shell builtin" << std::endl;
           found = true;
           break;
-        }
-      }
-
-      // check if command is in PATH
-      std::string path = getPath(command);
-      if (path.empty()) {
-        std::cout << command << ": not found\n"; 
-        continue;     
-      } else {
-        std::cout << command << " is " << path << std::endl;
-        continue;
-      }
-  
-      if (!found) {
-          std::cout << command << ": not found" << std::endl;
+        } else {
+              // check if command is in PATH
+          std::string path = getPath(command);
+          if (path.empty()) {
+            std::cout << command << ": not found\n"; 
+            continue;     
+          } else {
+            std::cout << command << " is " << path << std::endl;
+            continue;
+          }
+      
+          if (!found) {
+              std::cout << command << ": not found" << std::endl;
+            }
+          }
       }
 
       continue;
