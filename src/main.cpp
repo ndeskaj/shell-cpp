@@ -58,6 +58,28 @@ void execute_command(const std::string& input){
 
 }
 
+std::string changeDirectory(std::string directory){
+    if(directory == "--"){
+        static std::string lastDir = std::filesystem::current_path();
+        std::string temp = lastDir;
+        lastDir = std::filesystem::current_path();
+        std::filesystem::current_path(temp);
+        return "";
+    }
+
+    if(std::filesystem::exists(directory) && std::filesystem::is_directory(directory)){
+        std::filesystem::current_path(directory);
+        return "";
+    } else {
+        return "cd: " + directory + ": Directory does not exist";
+    }
+}
+
+std::string get_current_dir(){
+    // give the current working directory
+    return std::filesystem::current_path();
+}
+
 int main() {
 
     bool exit = false;
@@ -88,8 +110,11 @@ int main() {
             std::string cmd = input.substr(5);
             std::cout << cmd << "\n";
         } else if (input == "pwd"){
-            // give the current working directory
-            std::cout << std::filesystem::current_path() << std::endl;
+            std::string current_Path = get_current_dir();
+            std::cout << current_Path << std::endl;
+        } else if (input.substr(0, 3) == "cd "){
+            std::string dir = input.substr(3);
+            std::cout << changeDirectory(dir) << std::endl;
         } else {
             execute_command(input);
         }
