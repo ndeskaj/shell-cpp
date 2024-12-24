@@ -87,6 +87,9 @@ int main() {
         } else if (input.substr(0, 5) == "echo ") {
             std::string cmd = input.substr(5);
             std::cout << cmd << "\n";
+        } else if (input == "pwd"){
+            // give the current working directory
+            std::cout << std::filesystem::current_path() << std::endl;
         } else {
             execute_command(input);
         }
